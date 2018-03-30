@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
+
+import com.lxhmmc.interview.domain.base.BaseHR;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Administrator on 2018/3/29.
@@ -28,20 +32,34 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     protected final Handler baseHandler = new Handler();
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         TAG = getClass().getName();
 
         ct = this;
+
+
 
         initView();
 
         if (intentData()) {
             initUI();
         }
-
     }
+
+    public void apiError(BaseHR baseHR) {
+        if(baseHR.sysStatus!=BaseHR.HTTP_OK || baseHR.apiStatus!=BaseHR.HTTP_OK){
+            showToastError(baseHR.info);
+        }
+    }
+
+    protected  void showToast(String info){
+        Toasty.info(UiUtil.getContext(), info, Toast.LENGTH_SHORT, false).show();
+    };
+    protected  void showToastError(String info){
+        Toasty.error(UiUtil.getContext(), info, Toast.LENGTH_SHORT, false).show();
+    };
+
 
     /**
      * 初始化数据，主要是针对intent过来的data 如果返回true 继续执行下面的initUI,false反之.

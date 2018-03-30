@@ -1,5 +1,6 @@
 package com.lxhmmc.interview.business.net;
 
+import com.lxhmmc.interview.domain.base.BaseHR;
 import com.lxhmmc.interview.domain.logo.SplashLogoHR;
 
 import io.reactivex.Observable;
@@ -12,7 +13,7 @@ import retrofit2.http.GET;
 public interface SplashService {
 
     @GET("api/api.interview.logo.splap")
-    Observable<SplashLogoHR> getSplash();
+    Observable<BaseHR<SplashLogoHR>> getSplash();
 
 
 }

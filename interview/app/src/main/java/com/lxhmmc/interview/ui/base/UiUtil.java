@@ -1,8 +1,11 @@
 package com.lxhmmc.interview.ui.base;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
+import com.lxhmmc.interview.android.application.MyApplication;
 
 /**
  * Created by Administrator on 2018/3/29.
@@ -20,6 +23,11 @@ public class UiUtil {
         FragmentTransaction fragmentTransaction = supportFragmentManager.beginTransaction();
         fragmentTransaction.add(frameId,fragment);
         fragmentTransaction.commit();
+    }
+
+    public static Context getContext(){
+
+        return MyApplication.getInstance().getContext();
     }
 
 }
