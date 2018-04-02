@@ -2,9 +2,10 @@ package com.lxhmmc.interview.ui.activity.logo;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.os.Bundle;
+import android.widget.ImageView;
 
 import com.lxhmmc.interview.R;
+import com.lxhmmc.interview.business.gilde.GlideApp;
 import com.lxhmmc.interview.comm.LogHelper;
 import com.lxhmmc.interview.domain.logo.SplashLogoHR;
 import com.lxhmmc.interview.ui.base.BaseFragmentActivity;
@@ -12,7 +13,7 @@ import com.lxhmmc.interview.ui.present.logo.splash.SplashContract;
 import com.lxhmmc.interview.ui.present.logo.splash.SplashPresent;
 import com.lxhmmc.interview.ui.present.logo.splash.SplashTask;
 
-import butterknife.ButterKnife;
+import butterknife.BindView;
 import butterknife.OnClick;
 
 public class SplashLogoActivity extends BaseFragmentActivity implements SplashContract.View {
@@ -21,6 +22,8 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
     SplashContract.Presenter splashPresenter;
 
     Dialog dialog;
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
 
     @Override
     protected boolean intentData() {
@@ -42,7 +45,11 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
         SplashPresent presenter = new SplashPresent(splashTask, this);
         setPresenter(presenter);
 
-        loadInitData();
+
+        //test
+//        GlideApp.with(ct).load(R.drawable.guide_1).into(ivLogo);
+
+//        loadInitData();
     }
 
     @Override
@@ -69,8 +76,8 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
 
     @Override
     public void showProgress() {
-        if (!dialog.isShowing())
-            dialog.show();
+//        if (!dialog.isShowing())
+//            dialog.show();
     }
 
     @Override
@@ -79,22 +86,22 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
     }
 
 
-
     @Override
     public void setSplash(SplashLogoHR splash) {
 
-        LogHelper.i(TAG + " setSplash " + splash.toString());
+//        LogHelper.i(TAG + " setSplash " + splash.toString());
+        GlideApp
+                .with(ct)
+                .load(splash.adUrl)
+                .centerCrop()
+                .into(ivLogo);
+
     }
 
 
-    @OnClick(R.id.btn_test)
+    @OnClick(R.id.iv_logo)
     public void onViewClickedTest() {
         loadInitData();
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
-    }
 }

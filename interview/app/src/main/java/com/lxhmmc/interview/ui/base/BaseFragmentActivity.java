@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.lxhmmc.interview.domain.base.BaseHR;
 
+import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -41,6 +42,8 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
 
         initView();
+
+        ButterKnife.bind(this);
 
         if (intentData()) {
             initUI();
