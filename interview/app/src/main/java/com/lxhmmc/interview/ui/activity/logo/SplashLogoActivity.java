@@ -1,13 +1,13 @@
 package com.lxhmmc.interview.ui.activity.logo;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.widget.ImageView;
 
 import com.lxhmmc.interview.R;
-import com.lxhmmc.interview.business.gilde.GlideApp;
+import com.lxhmmc.interview.business.gilde.GlideUtil;
 import com.lxhmmc.interview.comm.LogHelper;
 import com.lxhmmc.interview.domain.logo.SplashLogoHR;
+import com.lxhmmc.interview.ui.activity.frame.FrameActivityMain;
 import com.lxhmmc.interview.ui.base.BaseFragmentActivity;
 import com.lxhmmc.interview.ui.present.logo.splash.SplashContract;
 import com.lxhmmc.interview.ui.present.logo.splash.SplashPresent;
@@ -38,18 +38,15 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
     @Override
     protected void initUI() {
 
-        dialog = new ProgressDialog(ct);
-        dialog.setTitle("请稍后....");
+//        dialog = new ProgressDialog(ct);
+//        dialog.setTitle("请稍后....");
 
         SplashTask splashTask = SplashTask.getNewInstance();
         SplashPresent presenter = new SplashPresent(splashTask, this);
         setPresenter(presenter);
 
 
-        //test
-//        GlideApp.with(ct).load(R.drawable.guide_1).into(ivLogo);
-
-//        loadInitData();
+        loadInitData();
     }
 
     @Override
@@ -70,14 +67,10 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
 
     @Override
     public void hideProgress() {
-        if (dialog.isShowing())
-            dialog.dismiss();
     }
 
     @Override
     public void showProgress() {
-//        if (!dialog.isShowing())
-//            dialog.show();
     }
 
     @Override
@@ -88,13 +81,19 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
 
     @Override
     public void setSplash(SplashLogoHR splash) {
+        GlideUtil.display(ivLogo,splash.adUrl);
 
-//        LogHelper.i(TAG + " setSplash " + splash.toString());
-        GlideApp
-                .with(ct)
-                .load(splash.adUrl)
-                .centerCrop()
-                .into(ivLogo);
+       baseHandler.postDelayed(new Runnable() {
+           @Override
+           public void run() {
+
+                goactivity(FrameActivityMain.class);
+               finish();
+
+           }
+
+
+       },splash.splashDuration);
 
     }
 

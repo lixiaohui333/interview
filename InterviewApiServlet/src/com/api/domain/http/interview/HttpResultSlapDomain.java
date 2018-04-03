@@ -34,7 +34,8 @@ public class HttpResultSlapDomain extends HttpResultDomain {
 		
 		public String adUrl;
 		
-		public int splashDuration = 3;
+		public int splashDuration
+		= 3000;
 		
 	}
 	

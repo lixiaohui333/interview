@@ -35,11 +35,9 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TAG = getClass().getName();
 
         ct = this;
-
-
+        activity = this;
 
         initView();
 
@@ -51,17 +49,24 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     }
 
     public void apiError(BaseHR baseHR) {
-        if(baseHR.sysStatus!=BaseHR.HTTP_OK || baseHR.apiStatus!=BaseHR.HTTP_OK){
+        if (baseHR.sysStatus != BaseHR.HTTP_OK || baseHR.apiStatus != BaseHR.HTTP_OK) {
             showToastError(baseHR.info);
         }
     }
 
-    protected  void showToast(String info){
+    protected void showToast(String info) {
         Toasty.info(UiUtil.getContext(), info, Toast.LENGTH_SHORT, false).show();
-    };
-    protected  void showToastError(String info){
+    }
+
+
+    protected void showToastError(String info) {
         Toasty.error(UiUtil.getContext(), info, Toast.LENGTH_SHORT, false).show();
-    };
+    }
+
+    public void goactivity(Class activity) {
+        Intent in = new Intent(ct,activity);
+        startActivity(in);
+    }
 
 
     /**
@@ -93,7 +98,7 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        activity = this;
+
     }
 
     @Override
@@ -104,6 +109,9 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        ct = this;
+        activity = this;
+        TAG = getClass().getName();
     }
 
     @Override

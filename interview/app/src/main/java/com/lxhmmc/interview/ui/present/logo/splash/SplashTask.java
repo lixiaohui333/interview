@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SplashTask implements NetTask<String> {
 
-    public static final String HOST = "http://192.168.33.144:8090";
+    public static final String HOST = "http://192.168.33.144/";
 
     private SplashTask() {
 
@@ -65,12 +65,13 @@ public class SplashTask implements NetTask<String> {
                     @Override
                     public void accept(BaseHR<SplashLogoHR> splashLogoHRBaseHR) throws Exception {
 
+                        LogHelper.i("Consumer accept BaseHR:"+splashLogoHRBaseHR.toString());
                         if (splashLogoHRBaseHR.sysStatus != BaseHR.HTTP_OK || splashLogoHRBaseHR.apiStatus != BaseHR.HTTP_OK) {
                             taskCallback.onSysError(splashLogoHRBaseHR);
                         } else {
                             taskCallback.onSuccess(splashLogoHRBaseHR.data);
                         }
-                        LogHelper.i("Consumer accept BaseHR:"+splashLogoHRBaseHR.toString());
+
                     }
                 }, new Consumer<Throwable>() {
                     @Override

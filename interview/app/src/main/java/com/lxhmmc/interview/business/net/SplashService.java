@@ -12,7 +12,7 @@ import retrofit2.http.GET;
 
 public interface SplashService {
 
-    @GET("api/api.interview.logo.splap")
+    @GET("/api/api.interview.logo.splap")
     Observable<BaseHR<SplashLogoHR>> getSplash();
 
 
