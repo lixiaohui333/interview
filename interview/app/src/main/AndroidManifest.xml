@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.activity.logo.SplashLogoActivity"
-            android:theme="@style/MyLogoAppTheme"
+            android:theme="@style/SplashTheme"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -21,7 +21,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.frame.FrameActivityMain"/>
+        <activity android:name=".ui.activity.frame.FrameActivityMain"
+                  android:theme="@style/FitSystemWindowTheme"
+            />
+        
+        <activity android:name=".ui.activity.setting.SettingActivityMain"
+                  android:theme="@style/AppTheme"
+            />
+        <activity android:name=".ui.activity.setting.SettingActivityAbout"
+                  android:theme="@style/AppTheme"
+            />
 
     </application>
 

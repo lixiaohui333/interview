@@ -9,10 +9,6 @@ import com.api.domain.http.base.HttpResultDomain;
 public class HttpResultSlapDomain extends HttpResultDomain {
 
 	private static final long serialVersionUID = 1L;
-
-//	List<String> data
-	
-	
 	public DataDomain data = new DataDomain();;
 	
 	
@@ -35,7 +31,7 @@ public class HttpResultSlapDomain extends HttpResultDomain {
 		public String adUrl;
 		
 		public int splashDuration
-		= 3000;
+		= 300;
 		
 	}
 	

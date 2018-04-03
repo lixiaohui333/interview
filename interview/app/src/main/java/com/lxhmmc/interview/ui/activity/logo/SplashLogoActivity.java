@@ -46,7 +46,9 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
         setPresenter(presenter);
 
 
-        loadInitData();
+        //test
+        goactivity(FrameActivityMain.class);
+//        loadInitData();
     }
 
     @Override
@@ -87,7 +89,7 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
            @Override
            public void run() {
 
-                goactivity(FrameActivityMain.class);
+               goactivity(FrameActivityMain.class);
                finish();
 
            }

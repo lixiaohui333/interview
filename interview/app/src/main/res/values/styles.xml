@@ -11,11 +11,12 @@
 
     </style>
 
-    <style name="MyLogoAppTheme" parent="AppTheme">
-
-        <item name="android:windowBackground">@drawable/logo_splash</item>
-
+    <style name="FitSystemWindowTheme" parent="AppTheme">
         <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+    <style name="SplashTheme" parent="FitSystemWindowTheme">
+        <item name="android:windowBackground">@drawable/logo_splash</item>
 
     </style>
 
