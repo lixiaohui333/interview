@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.lxhmmc.interview.domain.base.BaseHR;
@@ -55,16 +56,25 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     }
 
     protected void showToast(String info) {
+
+        if (TextUtils.isEmpty(info))
+            return;
+
+
         Toasty.info(UiUtil.getContext(), info, Toast.LENGTH_SHORT, false).show();
     }
 
 
     protected void showToastError(String info) {
+
+        if (TextUtils.isEmpty(info))
+            return;
+
         Toasty.error(UiUtil.getContext(), info, Toast.LENGTH_SHORT, false).show();
     }
 
     public void goactivity(Class activity) {
-        Intent in = new Intent(ct,activity);
+        Intent in = new Intent(ct, activity);
         startActivity(in);
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.lxhmmc.interview">
+          package="com.lxhmmc.interview"
+    >
 
     <application
         android:name=".android.application.MyApplication"
@@ -24,7 +25,7 @@
         <activity android:name=".ui.activity.frame.FrameActivityMain"
                   android:theme="@style/FitSystemWindowTheme"
             />
-        
+
         <activity android:name=".ui.activity.setting.SettingActivityMain"
                   android:theme="@style/AppTheme"
             />

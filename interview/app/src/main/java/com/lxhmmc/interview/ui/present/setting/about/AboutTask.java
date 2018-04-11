@@ -1,10 +1,9 @@
-package com.lxhmmc.interview.ui.present.logo.splash;
+package com.lxhmmc.interview.ui.present.setting.about;
 
 import com.lxhmmc.interview.business.net.LoadTaskCallBack;
 import com.lxhmmc.interview.business.net.NetTask;
 import com.lxhmmc.interview.comm.LogHelper;
 import com.lxhmmc.interview.domain.base.BaseHR;
-import com.lxhmmc.interview.domain.logo.SplashLogoHR;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -21,25 +20,25 @@ import static com.lxhmmc.interview.comm.Config.HTTP_HOST;
  * Created by Administrator on 2018/3/29.
  */
 
-public class SplashTask implements NetTask<String> {
+public class AboutTask implements NetTask<String> {
 
     public static final String HOST = HTTP_HOST;
 
-    private SplashTask() {
+    private AboutTask() {
 
         createRetrofit();
 
     }
 
-    private static SplashTask INSTANCE = null;
+    private static AboutTask INSTANCE = null;
 
-    public static SplashTask getNewInstance() {
+    public static AboutTask getNewInstance() {
 
         if (INSTANCE == null) {
 
-            synchronized (SplashTask.class) {
+            synchronized (AboutTask.class) {
                 if (INSTANCE == null)
-                    INSTANCE = new SplashTask();
+                    INSTANCE = new AboutTask();
             }
 
         }
@@ -60,17 +59,17 @@ public class SplashTask implements NetTask<String> {
     @Override
     public Disposable execute(String data, final LoadTaskCallBack taskCallback) {
 
-        SplashService weatherService = retrofit.create(SplashService.class);
-        Disposable disposable = weatherService.getSplash().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<BaseHR<SplashLogoHR>>() {
+        AboutService aboutService = retrofit.create(AboutService.class);
+        Disposable disposable = aboutService.feedback().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseHR>() {
                     @Override
-                    public void accept(BaseHR<SplashLogoHR> splashLogoHRBaseHR) throws Exception {
+                    public void accept(BaseHR baseHR) throws Exception {
 
-                        LogHelper.i("Consumer accept BaseHR:"+splashLogoHRBaseHR.toString());
-                        if (splashLogoHRBaseHR.sysStatus != BaseHR.HTTP_OK || splashLogoHRBaseHR.apiStatus != BaseHR.HTTP_OK) {
-                            taskCallback.onSysError(splashLogoHRBaseHR);
+                        LogHelper.i("Consumer accept BaseHR:"+baseHR.toString());
+                        if (baseHR.sysStatus != BaseHR.HTTP_OK || baseHR.apiStatus != BaseHR.HTTP_OK) {
+                            taskCallback.onSysError(baseHR);
                         } else {
-                            taskCallback.onSuccess(splashLogoHRBaseHR.data);
+                            taskCallback.onSuccess(baseHR.info);
                         }
 
                     }

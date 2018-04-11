@@ -38,14 +38,6 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
     @Override
     protected void initUI() {
 
-//        dialog = new ProgressDialog(ct);
-//        dialog.setTitle("请稍后....");
-
-        SplashTask splashTask = SplashTask.getNewInstance();
-        SplashPresent presenter = new SplashPresent(splashTask, this);
-        setPresenter(presenter);
-
-
         //test
         goactivity(FrameActivityMain.class);
 //        loadInitData();
@@ -58,14 +50,13 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
 
     @Override
     protected void loadInitData() {
+
+        if (splashPresenter == null)
+            splashPresenter = new SplashPresent(SplashTask.getNewInstance(), this);
+
         splashPresenter.getSplash();
     }
 
-
-    @Override
-    public void setPresenter(SplashContract.Presenter presenter) {
-        splashPresenter = presenter;
-    }
 
     @Override
     public void hideProgress() {
@@ -83,19 +74,19 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
 
     @Override
     public void setSplash(SplashLogoHR splash) {
-        GlideUtil.display(ivLogo,splash.adUrl);
+        GlideUtil.display(ivLogo, splash.adUrl);
 
-       baseHandler.postDelayed(new Runnable() {
-           @Override
-           public void run() {
+        baseHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
 
-               goactivity(FrameActivityMain.class);
-               finish();
+                goactivity(FrameActivityMain.class);
+                finish();
 
-           }
+            }
 
 
-       },splash.splashDuration);
+        }, splash.splashDuration);
 
     }
 

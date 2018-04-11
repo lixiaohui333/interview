@@ -1,6 +1,5 @@
 package com.lxhmmc.interview.ui.present.logo.splash;
 
-import com.lxhmmc.interview.domain.base.BaseHR;
 import com.lxhmmc.interview.domain.logo.SplashLogoHR;
 import com.lxhmmc.interview.ui.base.BaseView;
 
@@ -10,15 +9,7 @@ import com.lxhmmc.interview.ui.base.BaseView;
 
 public class SplashContract {
 
-    public interface View extends BaseView<Presenter>{
-
-        void hideProgress();
-
-        void showProgress();
-
-        void error();
-
-        void apiError(BaseHR baseHR);
+    public interface View extends BaseView{
 
         void setSplash(SplashLogoHR splash);
 

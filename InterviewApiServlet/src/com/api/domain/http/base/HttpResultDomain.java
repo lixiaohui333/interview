@@ -8,7 +8,7 @@ public class HttpResultDomain implements Serializable {
 
 	public int sysStatus=0;
 	public int apiStatus=0;
-	public String info;
+	public String info="success!";
 	public long timestamp=System.currentTimeMillis();
 	
 
