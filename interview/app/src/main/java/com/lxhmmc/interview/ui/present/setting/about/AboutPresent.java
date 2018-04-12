@@ -1,8 +1,13 @@
 package com.lxhmmc.interview.ui.present.setting.about;
 
 import com.lxhmmc.interview.business.net.LoadTaskCallBack;
-import com.lxhmmc.interview.business.net.NetTask;
+import com.lxhmmc.interview.business.net.NetTaskModel;
 import com.lxhmmc.interview.domain.base.BaseHR;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.disposables.Disposable;
 
 /**
  * Created by Administrator on 2018/3/29.
@@ -10,14 +15,12 @@ import com.lxhmmc.interview.domain.base.BaseHR;
 
 public class AboutPresent implements AboutContract.Presenter, LoadTaskCallBack<String> {
 
-    protected NetTask netTask;
+    protected NetTaskModel netTask;
 
-    protected AboutContract.View addview;
+    protected AboutContract.NetView addview;
 
-    public AboutPresent(NetTask netTask, AboutContract.View addview) {
-        this.netTask = netTask;
-        this.addview = addview;
-    }
+    protected List<Disposable> disposables = new ArrayList<>();
+
 
     @Override
     public void onSuccess(String info) {
@@ -59,7 +62,26 @@ public class AboutPresent implements AboutContract.Presenter, LoadTaskCallBack<S
 
     @Override
     public void feedback(String feedInfo) {
-        netTask.execute(feedInfo, this);
+        Disposable disposable = netTask.execute(feedInfo, this);
+        disposables.add(disposable);
     }
 
+
+    @Override
+    public void bindTaskAndView(NetTaskModel netTask, AboutContract.NetView baseNetView) {
+        this.netTask = netTask;
+        this.addview = baseNetView;
+    }
+
+    @Override
+    public void onDestroy() {
+        for (Disposable disposable :
+                disposables) {
+            if (!disposable.isDisposed())
+                disposable.dispose();
+        }
+        disposables.clear();
+        addview = null;
+        netTask = null;
+    }
 }

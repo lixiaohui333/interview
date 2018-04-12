@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.lxhmmc.interview.business.net.NetTaskModel;
+import com.lxhmmc.interview.comm.util.TUtil;
 import com.lxhmmc.interview.domain.base.BaseHR;
 
 import butterknife.ButterKnife;
@@ -18,7 +20,7 @@ import es.dmoral.toasty.Toasty;
  * Created by Administrator on 2018/3/29.
  */
 
-public abstract class BaseFragmentActivity extends AppCompatActivity {
+public abstract class BaseFragmentActivity<T extends BasePresenter, E extends NetTaskModel> extends AppCompatActivity {
 
     protected String TAG;
 
@@ -33,20 +35,41 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
 
     protected final Handler baseHandler = new Handler();
 
+
+    protected T mPresenter;
+    protected E mModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         ct = this;
         activity = this;
+        TAG = getClass().getName();
 
         initView();
 
         ButterKnife.bind(this);
 
         if (intentData()) {
+
+            initMvp()
+            ;
+
             initUI();
         }
+    }
+
+    private void initMvp() {
+
+        mPresenter = TUtil.getT(this, 0);
+        mModel = TUtil.getT(this, 1);
+
+        if (mPresenter == null || mModel == null)
+            return;
+
+        if (this instanceof BaseNetView)
+            mPresenter.bindTaskAndView(mModel, (BaseNetView) this);
     }
 
     public void apiError(BaseHR baseHR) {
@@ -114,21 +137,27 @@ public abstract class BaseFragmentActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        ct = this;
-        activity = this;
-        TAG = getClass().getName();
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        ct = null;
-        TAG = null;
+
+        if (isFinishing()) {
+            ct = null;
+            TAG = null;
+            if (mPresenter != null)
+                mPresenter.onDestroy();
+        }
+
     }
 
     @Override

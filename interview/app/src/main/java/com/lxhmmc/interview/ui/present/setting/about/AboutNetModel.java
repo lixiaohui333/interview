@@ -1,7 +1,8 @@
 package com.lxhmmc.interview.ui.present.setting.about;
 
+import com.lxhmmc.interview.business.net.ApiService;
 import com.lxhmmc.interview.business.net.LoadTaskCallBack;
-import com.lxhmmc.interview.business.net.NetTask;
+import com.lxhmmc.interview.business.net.NetTaskModel;
 import com.lxhmmc.interview.comm.LogHelper;
 import com.lxhmmc.interview.domain.base.BaseHR;
 
@@ -20,30 +21,14 @@ import static com.lxhmmc.interview.comm.Config.HTTP_HOST;
  * Created by Administrator on 2018/3/29.
  */
 
-public class AboutTask implements NetTask<String> {
+public class AboutNetModel implements NetTaskModel<String> {
 
     public static final String HOST = HTTP_HOST;
 
-    private AboutTask() {
+    public AboutNetModel() {
 
         createRetrofit();
 
-    }
-
-    private static AboutTask INSTANCE = null;
-
-    public static AboutTask getNewInstance() {
-
-        if (INSTANCE == null) {
-
-            synchronized (AboutTask.class) {
-                if (INSTANCE == null)
-                    INSTANCE = new AboutTask();
-            }
-
-        }
-
-        return INSTANCE;
     }
 
     private Retrofit retrofit;
@@ -59,7 +44,8 @@ public class AboutTask implements NetTask<String> {
     @Override
     public Disposable execute(String data, final LoadTaskCallBack taskCallback) {
 
-        AboutService aboutService = retrofit.create(AboutService.class);
+        ApiService aboutService = retrofit.create(ApiService.class);
+
         Disposable disposable = aboutService.feedback().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<BaseHR>() {
                     @Override

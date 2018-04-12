@@ -14,8 +14,8 @@ import com.lxhmmc.interview.ui.dialog.CommonDialogFragment;
 import com.lxhmmc.interview.ui.dialog.DialogFragmentHelper;
 import com.lxhmmc.interview.ui.dialog.IDialogResultListener;
 import com.lxhmmc.interview.ui.present.setting.about.AboutContract;
+import com.lxhmmc.interview.ui.present.setting.about.AboutNetModel;
 import com.lxhmmc.interview.ui.present.setting.about.AboutPresent;
-import com.lxhmmc.interview.ui.present.setting.about.AboutTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,7 +24,7 @@ import butterknife.OnClick;
 import static com.lxhmmc.interview.comm.Config.ALIPAY_ADDRESS;
 import static com.lxhmmc.interview.comm.Config.GITHUB_ADDRESS;
 
-public class SettingActivityAbout extends BaseFragmentActivity implements AboutContract.View {
+public class SettingActivityAbout extends BaseFragmentActivity<AboutPresent,AboutNetModel> implements AboutContract.NetView {
 
 
     @BindView(R.id.toolbar)
@@ -32,7 +32,7 @@ public class SettingActivityAbout extends BaseFragmentActivity implements AboutC
     @BindView(R.id.tv_version_name)
     TextView tvVersionName;
 
-    AboutPresent aboutPresent;
+//    AboutPresent aboutPresent;
 
     CommonDialogFragment commonDialogFragment = null;
 
@@ -118,11 +118,11 @@ public class SettingActivityAbout extends BaseFragmentActivity implements AboutC
             return;
         }
 
-        if (aboutPresent == null) {
-            aboutPresent = new AboutPresent(AboutTask.getNewInstance(), this);
-        }
+//        if (aboutPresent == null) {
+//            aboutPresent = new AboutPresent(AboutNetModel.getNewInstance(), this);
+//        }
 
-        aboutPresent.feedback(result);
+        mPresenter.feedback(result);
     }
 
 

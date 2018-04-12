@@ -1,7 +1,8 @@
 package com.lxhmmc.interview.ui.present.logo.splash;
 
+import com.lxhmmc.interview.business.net.ApiService;
 import com.lxhmmc.interview.business.net.LoadTaskCallBack;
-import com.lxhmmc.interview.business.net.NetTask;
+import com.lxhmmc.interview.business.net.NetTaskModel;
 import com.lxhmmc.interview.comm.LogHelper;
 import com.lxhmmc.interview.domain.base.BaseHR;
 import com.lxhmmc.interview.domain.logo.SplashLogoHR;
@@ -21,46 +22,27 @@ import static com.lxhmmc.interview.comm.Config.HTTP_HOST;
  * Created by Administrator on 2018/3/29.
  */
 
-public class SplashTask implements NetTask<String> {
+public class SplashNetModel implements NetTaskModel<String> {
 
     public static final String HOST = HTTP_HOST;
 
-    private SplashTask() {
-
+    public SplashNetModel() {
+        LogHelper.i("SplashNetModel init");
         createRetrofit();
-
-    }
-
-    private static SplashTask INSTANCE = null;
-
-    public static SplashTask getNewInstance() {
-
-        if (INSTANCE == null) {
-
-            synchronized (SplashTask.class) {
-                if (INSTANCE == null)
-                    INSTANCE = new SplashTask();
-            }
-
-        }
-
-        return INSTANCE;
     }
 
     private Retrofit retrofit;
 
     private void createRetrofit() {
-
         retrofit = new Retrofit.Builder().baseUrl(HOST)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create()).build();
-
     }
 
     @Override
     public Disposable execute(String data, final LoadTaskCallBack taskCallback) {
 
-        SplashService weatherService = retrofit.create(SplashService.class);
+        ApiService weatherService = retrofit.create(ApiService.class);
         Disposable disposable = weatherService.getSplash().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<BaseHR<SplashLogoHR>>() {
                     @Override

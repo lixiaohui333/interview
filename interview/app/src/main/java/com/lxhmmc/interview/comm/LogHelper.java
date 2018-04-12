@@ -59,7 +59,7 @@ public class LogHelper {
 		if (null == msg)
 			return 0;
 		if (isDebug) {
-			System.out.println(msg);
+			Log.i("lxhmmc",msg);
 			return 0;
 		} else {
 			return 0;

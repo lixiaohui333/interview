@@ -10,16 +10,16 @@ import com.lxhmmc.interview.domain.logo.SplashLogoHR;
 import com.lxhmmc.interview.ui.activity.frame.FrameActivityMain;
 import com.lxhmmc.interview.ui.base.BaseFragmentActivity;
 import com.lxhmmc.interview.ui.present.logo.splash.SplashContract;
+import com.lxhmmc.interview.ui.present.logo.splash.SplashNetModel;
 import com.lxhmmc.interview.ui.present.logo.splash.SplashPresent;
-import com.lxhmmc.interview.ui.present.logo.splash.SplashTask;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class SplashLogoActivity extends BaseFragmentActivity implements SplashContract.View {
+public class SplashLogoActivity extends BaseFragmentActivity<SplashPresent,SplashNetModel> implements SplashContract.NetView {
 
 
-    SplashContract.Presenter splashPresenter;
+//    SplashContract.Presenter splashPresenter;
 
     Dialog dialog;
     @BindView(R.id.iv_logo)
@@ -39,8 +39,8 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
     protected void initUI() {
 
         //test
-        goactivity(FrameActivityMain.class);
-//        loadInitData();
+//        goactivity(FrameActivityMain.class);
+        loadInitData();
     }
 
     @Override
@@ -51,10 +51,9 @@ public class SplashLogoActivity extends BaseFragmentActivity implements SplashCo
     @Override
     protected void loadInitData() {
 
-        if (splashPresenter == null)
-            splashPresenter = new SplashPresent(SplashTask.getNewInstance(), this);
+//        mPresenter.getSplashByNet();
+        mPresenter.getSplashByNet();
 
-        splashPresenter.getSplash();
     }
 
 

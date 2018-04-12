@@ -1,6 +1,7 @@
 package com.lxhmmc.interview.ui.present.setting.about;
 
-import com.lxhmmc.interview.ui.base.BaseView;
+import com.lxhmmc.interview.ui.base.BaseNetView;
+import com.lxhmmc.interview.ui.base.BasePresenter;
 
 /**
  * Created by Administrator on 2018/3/29.
@@ -8,13 +9,13 @@ import com.lxhmmc.interview.ui.base.BaseView;
 
 public class AboutContract {
 
-    public interface View extends BaseView{
+    public interface NetView extends BaseNetView {
 
         void setFeedbackSuccess(String info);
 
     }
 
-    public interface Presenter {
+    public interface Presenter extends BasePresenter<AboutContract.NetView>{
         void feedback(String feedInfo);
     }
 }
