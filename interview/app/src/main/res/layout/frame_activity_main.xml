@@ -25,21 +25,80 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:title="面试题库"
                 app:titleMargin="5dp"
                 app:titleTextColor="@android:color/white"
-                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 >
             </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.AppBarLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hellow word!!"
+        <FrameLayout
+            android:id="@+id/fl_frame"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
             />
+
+        <RadioGroup
+            android:id="@+id/rg_main"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/rb_interview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/global_tab"
+                android:text="面试题"
+                android:button="@null"
+                android:gravity="center"
+                android:checked="true"
+
+                />
+
+            <RadioButton
+                android:id="@+id/rb_block"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/trend_tab"
+                android:text="区块链"
+                android:textColor="@color/color_text_333"
+                android:button="@null"
+                android:gravity="center"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/global_tab"
+                android:text="资讯"
+                android:textColor="@color/color_text_333"
+                android:button="@null"
+                android:gravity="center"
+                />
+            <RadioButton
+                android:id="@+id/rb_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/exchange_intro_tab"
+                android:text="我的"
+                android:textColor="@color/color_text_333"
+                android:button="@null"
+                android:gravity="center"
+                />
+        </RadioGroup>
+
+
     </LinearLayout>
 
     <android.support.design.widget.NavigationView

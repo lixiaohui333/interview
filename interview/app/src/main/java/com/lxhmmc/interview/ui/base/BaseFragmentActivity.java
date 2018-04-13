@@ -10,8 +10,14 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.lxhmmc.interview.business.net.NetTaskModel;
+import com.lxhmmc.interview.comm.LogHelper;
 import com.lxhmmc.interview.comm.util.TUtil;
 import com.lxhmmc.interview.domain.base.BaseHR;
+import com.lxhmmc.interview.domain.eventbus.EventMessage;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
@@ -48,6 +54,8 @@ public abstract class BaseFragmentActivity<T extends BasePresenter, E extends Ne
         TAG = getClass().getName();
 
         initView();
+
+        EventBus.getDefault().register(this);
 
         ButterKnife.bind(this);
 
@@ -102,6 +110,24 @@ public abstract class BaseFragmentActivity<T extends BasePresenter, E extends Ne
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true, priority = 100)
+    public void eventMessage(EventMessage message) {
+        LogHelper.i(TAG, "eventMessage:----->" + message.toString());
+        if (TAG.equals(message.rel)) {
+            getEventMessage(message);
+            LogHelper.i(TAG, message.toString());
+        }
+    }
+
+    protected void getEventMessage(EventMessage message) {
+        LogHelper.i(TAG, message.toString());
+    }
+
+    protected void sendEventBus(EventMessage message) {
+        EventBus.getDefault().post(message);
+    }
+
+
     /**
      * 初始化数据，主要是针对intent过来的data 如果返回true 继续执行下面的initUI,false反之.
      */
@@ -152,10 +178,13 @@ public abstract class BaseFragmentActivity<T extends BasePresenter, E extends Ne
         super.onStop();
 
         if (isFinishing()) {
+
             ct = null;
             TAG = null;
             if (mPresenter != null)
                 mPresenter.onDestroy();
+
+            EventBus.getDefault().unregister(this);
         }
 
     }
